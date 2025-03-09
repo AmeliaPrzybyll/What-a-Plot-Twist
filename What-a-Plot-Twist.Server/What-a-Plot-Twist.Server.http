@@ -1,0 +1,6 @@
+@What_a_Plot_Twist.Server_HostAddress = http://localhost:5279
+
+GET {{What_a_Plot_Twist.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
