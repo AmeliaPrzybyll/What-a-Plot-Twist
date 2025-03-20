@@ -1,6 +1,11 @@
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Pobranie Connection String z appsettings.json
+var mongoConnectionString = builder.Configuration.GetConnectionString("MongoDBConnection");
+
+// Rejestracja ustawieñ MongoDB
+builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDB"));
+builder.Services.AddSingleton<MongoDbContext>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
