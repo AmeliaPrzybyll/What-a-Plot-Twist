@@ -1,7 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Pobranie Connection String z appsettings.json
-var mongoConnectionString = builder.Configuration.GetConnectionString("MongoDBConnection");
+var mongoConnectionString = builder.Configuration.GetConnectionString("DbConnection");
 
 // Rejestracja ustawieñ MongoDB
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDB"));
