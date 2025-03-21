@@ -10,8 +10,7 @@ namespace What_a_Plot_Twist.Server.Model
     public class User
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public ObjectId Id { get; set; } = ObjectId.GenerateNewId(); //problem with id (it is saved incorrectly in the database)
+        public ObjectId Id { get; set; } = ObjectId.GenerateNewId();  //problem with id (it is saved incorrectly in the database)
 
         [BsonElement("username")]
         public string Username { get; set; }
@@ -25,5 +24,29 @@ namespace What_a_Plot_Twist.Server.Model
         //[BsonElement("avatar")]
         //public byte[] Avatar { get; set; }
 
+        [BsonElement("charadesGameScore")]
+        public List<GameSession> CharadesGameScore { get; set; } = new List<GameSession>();
+
+    }
+    public class GameSession
+    {
+        [BsonElement("gameSessionId")]
+        public ObjectId GameSessionId { get; set; } = ObjectId.GenerateNewId();  //problem with id (it is saved incorrectly in the database)
+
+        [BsonElement("players")]
+        public List<PlayerScore> Players { get; set; } = new List<PlayerScore>();
+
+        [BsonElement("winner")]
+        public string Winner { get; set; }
+
+    }
+
+    public class PlayerScore
+    {
+        [BsonElement("playerName")]
+        public string PlayerName { get; set; } 
+
+        [BsonElement("score")]
+        public int Score { get; set; } 
     }
 }
