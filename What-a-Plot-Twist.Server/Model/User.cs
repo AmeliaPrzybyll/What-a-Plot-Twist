@@ -31,7 +31,8 @@ namespace What_a_Plot_Twist.Server.Model
     public class GameSession
     {
         [BsonElement("gameSessionId")]
-        public ObjectId GameSessionId { get; set; } = ObjectId.GenerateNewId();  //problem with id (it is saved incorrectly in the database)
+        public string Id { get; set; } = ObjectId.GenerateNewId().ToString();   //problem with id (it is saved incorrectly in the database)
+        //zmiana na id poniewaz był problem z mongo
 
         [BsonElement("players")]
         public List<PlayerScore> Players { get; set; } = new List<PlayerScore>();

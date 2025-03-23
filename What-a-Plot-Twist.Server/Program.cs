@@ -1,5 +1,13 @@
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy => policy.WithOrigins("https://localhost:61788/") // Adres frontendu (React/Vite)
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+});
+
 // Pobranie Connection String z appsettings.json
 var mongoConnectionString = builder.Configuration.GetConnectionString("DbConnection");
 
@@ -23,6 +31,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("AllowFrontend"); // W³¹czenie CORS
 
 app.UseHttpsRedirection();
 
