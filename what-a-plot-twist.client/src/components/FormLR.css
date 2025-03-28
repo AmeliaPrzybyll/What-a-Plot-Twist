@@ -38,7 +38,6 @@ html, body {
     background-color: white;
     flex-direction: column;
     border-radius: 20px 0px 0px 20px;
-    /*border: 2px solid lightGray;*/
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -55,7 +54,6 @@ html, body {
     position: relative;
     text-align: center;
     border-radius: 0px 20px 20px 0px;
-    /*border: 2px solid black;*/
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
