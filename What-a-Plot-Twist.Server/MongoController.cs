@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration.UserSecrets;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Security.Cryptography;
@@ -17,7 +16,7 @@ public class MongoController : ControllerBase
     {
         _context = context;
     }
-    
+
     [HttpPost("add-document")]
     public async Task<IActionResult> AddDocument([FromBody] User newUser)
     {
@@ -57,19 +56,10 @@ public class MongoController : ControllerBase
             var collection = _context.GetCollection<User>("User");
             var user = await collection.Find(u => u.Username == loginRequest.Username).FirstOrDefaultAsync();
 
-            Console.WriteLine($"Typ ID: {user?.Id?.GetType()}");
-
-            Console.WriteLine("Wynik z MongoDB:");
-            Console.WriteLine(user?.ToJson());
-
-
-            if (user == null)
+            if (user == null || loginRequest.Password != user.PasswordHash)
+            {
                 return Unauthorized("Nieprawidłowy login lub hasło.");
-
-            var hashedInput = HashPassword(loginRequest.Password, user.Salt);
-
-            if (hashedInput != user.PasswordHash)
-                return Unauthorized("Nieprawidłowy login lub hasło.");
+            }
 
             return Ok(new { message = "Zalogowano pomyślnie", username = user.Username });
         }
@@ -156,9 +146,9 @@ public class RegistrationRequest
     public string Password { get; set; }
 }
 
-//public class User     //A oto jest winowajca
-//{
-//    public string Username { get; set; }
-//    public string PasswordHash { get; set; }
-//    public string Salt { get; set; } // Salt do hasła
-//}
+public class User
+{
+    public string Username { get; set; }
+    public string PasswordHash { get; set; }
+    public string Salt { get; set; } // Salt do hasła
+}

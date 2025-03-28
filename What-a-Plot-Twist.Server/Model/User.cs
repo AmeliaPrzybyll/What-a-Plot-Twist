@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
-//using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 
 
@@ -10,14 +10,7 @@ namespace What_a_Plot_Twist.Server.Model
     public class User
     {
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)] // ← to rozwiązuje problem!
-        [BsonElement("_id")]
-        public string Id { get; set; }
-        //[BsonId]
-        //[BsonRepresentation(BsonType.ObjectId)]
-        //public string Id { get; set; }
-        //[BsonId]
-        //public ObjectId Id { get; set; } = ObjectId.GenerateNewId();  //problem with id (it is saved incorrectly in the database)
+        public ObjectId Id { get; set; } = ObjectId.GenerateNewId();  //problem with id (it is saved incorrectly in the database)
 
         [BsonElement("username")]
         public string Username { get; set; }
