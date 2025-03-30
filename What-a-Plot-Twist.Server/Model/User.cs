@@ -13,11 +13,6 @@ namespace What_a_Plot_Twist.Server.Model
         [BsonRepresentation(BsonType.ObjectId)] // ← to rozwiązuje problem!
         [BsonElement("_id")]
         public string Id { get; set; }
-        //[BsonId]
-        //[BsonRepresentation(BsonType.ObjectId)]
-        //public string Id { get; set; }
-        //[BsonId]
-        //public ObjectId Id { get; set; } = ObjectId.GenerateNewId();  //problem with id (it is saved incorrectly in the database)
 
         [BsonElement("username")]
         public string Username { get; set; }
@@ -25,15 +20,11 @@ namespace What_a_Plot_Twist.Server.Model
         [BsonElement("passwordHash")]
         public string PasswordHash { get; set; }
 
-        [BsonElement("salt")]
-        public string Salt { get; set; }
-
-        //[BsonElement("avatar")]
-        //public byte[] Avatar { get; set; }
+        [BsonElement("avatar")]
+        public byte[] Avatar { get; set; }
 
         [BsonElement("charadesGameScore")]
         public List<GameSession> CharadesGameScore { get; set; } = new List<GameSession>();
-
     }
     public class GameSession
     {
