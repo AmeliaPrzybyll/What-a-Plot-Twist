@@ -48,30 +48,20 @@ public class MongoController : ControllerBase
         }
     }
 
-    // Logowanie
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
     {
         try
         {
             var collection = _context.GetCollection<User>("User");
+
             var user = await collection.Find(u => u.Username == loginRequest.Username).FirstOrDefaultAsync();
+            if (user == null || !VerifyPassword(loginRequest.Password, user.PasswordHash))
+            {
+                return Unauthorized("Nieprawidłowa nazwa użytkownika lub hasło.");
+            }
 
-            Console.WriteLine($"Typ ID: {user?.Id?.GetType()}");
-
-            Console.WriteLine("Wynik z MongoDB:");
-            Console.WriteLine(user?.ToJson());
-
-
-            if (user == null)
-                return Unauthorized("Nieprawidłowy login lub hasło.");
-
-            var hashedInput = HashPassword(loginRequest.Password, user.Salt);
-
-            if (hashedInput != user.PasswordHash)
-                return Unauthorized("Nieprawidłowy login lub hasło.");
-
-            return Ok(new { message = "Zalogowano pomyślnie", username = user.Username });
+            return Ok(new { message = "Logowanie udane", username = user.Username });
         }
         catch (Exception ex)
         {
@@ -79,36 +69,28 @@ public class MongoController : ControllerBase
         }
     }
 
-    // Rejestracja
-    [HttpPost("registration")]
+    [HttpPost("register")]
     public async Task<IActionResult> Registration([FromBody] RegistrationRequest registrationRequest)
     {
         try
         {
             var collection = _context.GetCollection<User>("User");
 
-            // Sprawdź, czy użytkownik już istnieje
             var existingUser = await collection.Find(u => u.Username == registrationRequest.Username).FirstOrDefaultAsync();
             if (existingUser != null)
             {
                 return Conflict("Użytkownik o tej nazwie już istnieje.");
             }
 
-            // Generowanie unikalnego salt (możesz użyć np. GUID)
-            var salt = GenerateSalt();
+            var hashedPassword = HashPassword(registrationRequest.Password);
 
-            // Haszowanie hasła z użyciem salt
-            var hashedPassword = HashPassword(registrationRequest.Password, salt);
-
-            // Tworzenie nowego użytkownika
             var newUser = new User
             {
                 Username = registrationRequest.Username,
                 PasswordHash = hashedPassword,
-                Salt = salt  // Przechowujemy salt w bazie danych
+                Avatar = null
             };
 
-            // Zapisz użytkownika do bazy
             await collection.InsertOneAsync(newUser);
 
             return Ok(new { message = "Rejestracja zakończona pomyślnie", username = newUser.Username });
@@ -118,6 +100,7 @@ public class MongoController : ControllerBase
             return StatusCode(500, $"Błąd serwera: {ex.Message}");
         }
     }
+
 
     private string HashPassword(string password, string salt)
     {
@@ -130,20 +113,16 @@ public class MongoController : ControllerBase
         }
     }
 
-    private string GenerateSalt()
+    private string HashPassword(string password)
     {
-        // Można tu wygenerować losowy salt (np. 16 bajtów)
-        using (var rng = new RNGCryptoServiceProvider())
-        {
-            byte[] salt = new byte[16];
-            rng.GetBytes(salt);
-            return Convert.ToBase64String(salt);
-        }
+        return BCrypt.Net.BCrypt.HashPassword(password);
     }
+    private bool VerifyPassword(string enteredPassword, string storedHash)
+    {
+        return BCrypt.Net.BCrypt.Verify(enteredPassword, storedHash);
+    }
+
 }
-
-// Modele danych do rejestracji i logowania
-
 public class LoginRequest
 {
     public string Username { get; set; }
@@ -156,9 +135,4 @@ public class RegistrationRequest
     public string Password { get; set; }
 }
 
-//public class User     //A oto jest winowajca
-//{
-//    public string Username { get; set; }
-//    public string PasswordHash { get; set; }
-//    public string Salt { get; set; } // Salt do hasła
-//}
+
