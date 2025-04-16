@@ -8,7 +8,7 @@ export default function HomePage() {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        // tu możesz dodać czyszczenie sesji, np. localStorage.clear();
+        // tu czyszczenie sesji
         navigate("/");
     };
 
@@ -17,7 +17,12 @@ export default function HomePage() {
             <nav className="navbar">
                 <div className="logo">What a Plot Twist!</div>
                 <div className="user-panel">
-                    <img src={userIcon} alt="User Icon" className="user-icon" />
+                    <img
+                        src={userIcon}
+                        alt="User Icon"
+                        className="user-icon"
+                        onClick={() => navigate("/account")}
+                    />
                     <button className="logout-button" onClick={handleLogout}>
                         Wyloguj się
                     </button>
