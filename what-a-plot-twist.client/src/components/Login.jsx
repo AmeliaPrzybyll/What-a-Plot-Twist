@@ -1,11 +1,16 @@
 ﻿import { useState } from "react";
 import "./FormLR.css";
 import { login } from "../services/authService";
+import { useNavigate } from "react-router-dom";
+
 
 function Login({ onLogin, onToggleForm }) {
+
+
     const [nickname, setNick] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -13,6 +18,7 @@ function Login({ onLogin, onToggleForm }) {
         try {
             const data = await login(nickname, password);
             console.log("Zalogowano pomyślnie:", data);
+            navigate("/home");
             onLogin();
         } catch (err) {
             console.error("Błąd:", err.message);
