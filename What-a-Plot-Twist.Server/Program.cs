@@ -1,3 +1,6 @@
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
@@ -8,10 +11,41 @@ builder.Services.AddCors(options =>
                         .AllowAnyMethod());
 });
 
-// Pobranie Connection String z appsettings.json
-var mongoConnectionString = builder.Configuration.GetConnectionString("DbConnection");
+//test połaczenia z bazą danych przy starcie aplikacji
+var mongoConnectionString = builder.Configuration.GetSection("MongoDB:ConnectionString").Value;
+var databaseName = builder.Configuration.GetSection("MongoDB:DatabaseName").Value;
 
-// Rejestracja ustawie� MongoDB
+if (string.IsNullOrEmpty(mongoConnectionString))
+{
+    Console.WriteLine("❌ Błąd: Brak connection stringa! Sprawdź appsettings.json.");
+    Environment.Exit(1);
+}
+else
+{
+    Console.WriteLine($"✅ Connection string: {mongoConnectionString}");
+}
+
+try
+{
+    var mongoClient = new MongoClient(mongoConnectionString);
+    var database = mongoClient.GetDatabase(databaseName);
+    var pingResult = database.RunCommandAsync((Command<BsonDocument>)"{ping:1}").Wait(2000);
+
+    if (!pingResult)
+    {
+        throw new Exception("Brak odpowiedzi od serwera MongoDB.");
+    }
+
+    Console.WriteLine("✅ Połączenie z bazą MongoDB działa poprawnie.");
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"❌ Błąd połączenia z bazą: {ex.Message}");
+    Environment.Exit(1);
+}
+
+
+// Rejestracja ustawień MongoDB
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDB"));
 builder.Services.AddSingleton<MongoDbContext>();
 
@@ -35,7 +69,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("AllowFrontend"); // W��czenie CORS
+app.UseCors("AllowFrontend"); // Włączenie CORS
 
 app.UseAuthorization();
 

@@ -79,3 +79,36 @@ body, html {
         color: orange !important;
         border: 2px solid orange !important;
     }
+
+/* Avatar - stylizacja kwadratu */
+.avatar-container {
+    width: 100px; /* Szerokoœæ kontenera */
+    height: 100px; /* Wysokoœæ kontenera */
+    margin-bottom: 15px;
+    border-radius: 50%; /* Okreœlamy, aby obrazek by³ okr¹g³y */
+    overflow: hidden; /* Ukrywamy wszystko poza obszarem kontenera */
+    display: flex;
+    align-items: center; /* Wyrównanie w pionie */
+    justify-content: center; /* Wyrównanie w poziomie */
+    background-color: #f0f0f0; /* Kolor t³a kontenera */
+}
+
+/* Avatar - stylizacja samego obrazka */
+.avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Dopasowanie zdjêcia do kontenera */
+}
+
+/* Avatar - placeholder, gdy brak zdjêcia */
+.avatar-placeholder {
+    width: 60%;
+    height: 60%;
+    background-color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+}
+
