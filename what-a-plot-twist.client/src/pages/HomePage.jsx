@@ -12,6 +12,10 @@ export default function HomePage() {
         navigate("/");
     };
 
+    const handleTruthOrDare = () => {
+        navigate("/truthOrDare");
+    };
+
     return (
         <div className="home-page">
             <nav className="navbar">
@@ -34,7 +38,7 @@ export default function HomePage() {
                 <h2>Wybierz w co chcesz zagrać:</h2>
 
                 <div className="game-buttons">
-                    <button className="game-button">Prawda czy wyzwanie</button>
+                    <button className="game-button" onClick={handleTruthOrDare}>Prawda czy wyzwanie</button>
                     <button className="game-button">Nigdy przenigdy</button>
                     <button className="game-button">Kalambury</button>
                     <button className="game-button">Czy to fake news</button>
