@@ -44,12 +44,16 @@ catch (Exception ex)
     Environment.Exit(1);
 }
 
-
 // Rejestracja ustawień MongoDB
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDB"));
 builder.Services.AddSingleton<MongoDbContext>();
 
+// Rejestracja HttpClient do użycia w ChatGptController
+builder.Services.AddHttpClient();
+
+// Rejestracja kontrolerów
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -65,7 +69,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 
 app.UseHttpsRedirection();
 
