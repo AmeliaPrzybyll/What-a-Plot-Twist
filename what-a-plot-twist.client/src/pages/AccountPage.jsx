@@ -10,7 +10,6 @@ export default function AccountPage() {
     const [message, setMessage] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
-    // Ładowanie zdjęcia z pamięci lokalnej (jeśli jest)
     useEffect(() => {
         const storedAvatar = localStorage.getItem('avatar');
         if (storedAvatar) {
@@ -21,26 +20,25 @@ export default function AccountPage() {
     const handlePhotoChange = (e) => {
         const file = e.target.files[0];
         if (file) {
-            const fileSizeInMB = file.size / (1024 * 1024); // Rozmiar pliku w MB
+            const fileSizeInMB = file.size / (1024 * 1024); 
 
             if (fileSizeInMB > 1) {
                 setMessage('Plik zdjęcia jest za duży. Maksymalny rozmiar to 1 MB.');
-                return; // Przerywamy dalsze przetwarzanie, jeśli plik jest za duży
+                return;
             }
 
             const reader = new FileReader();
             reader.onloadend = () => {
                 const base64String = reader.result.split(',')[1];
                 setPhotoBase64(base64String);
-                localStorage.setItem('avatar', base64String); // Zapisujemy zdjęcie w pamięci lokalnej
-                setMessage(''); // Czyścimy wiadomość o błędzie
+                localStorage.setItem('avatar', base64String); 
+                setMessage(''); 
             };
             reader.readAsDataURL(file);
         }
     };
 
 
-    // Funkcja walidacji hasła
     const validatePassword = (password) => {
         const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
         if (!password) {
@@ -53,16 +51,15 @@ export default function AccountPage() {
             setPasswordError('Hasło musi zawierać co najmniej 8 znaków, jedną dużą literę, jedną cyfrę i jeden znak specjalny.');
             return false;
         }
-        setPasswordError(''); // Jeżeli hasło jest poprawne, usuwamy komunikat o błędzie
+        setPasswordError(''); 
         return true;
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Walidacja hasła przed wysłaniem formularza
         if (newPassword && !validatePassword(newPassword)) {
-            return; // Jeśli hasło nie spełnia wymagań, zatrzymujemy proces
+            return; 
         }
 
         if (!username && !newPassword && !photoBase64) {
@@ -124,7 +121,6 @@ export default function AccountPage() {
             <h1>Konto użytkownika</h1>
             {message && <p className="message">{message}</p>}
 
-            {/* Wyświetlanie zdjęcia profilowego */}
             <div className="avatar-container">
                 {photoBase64 ? (
                     <img
@@ -156,11 +152,11 @@ export default function AccountPage() {
                     <input
                         type="password"
                         value={newPassword}
-                        onChange={(e) => setNewPassword(e.target.value)} // Po każdej zmianie sprawdzamy hasło
+                        onChange={(e) => setNewPassword(e.target.value)}
                         placeholder="Nowe hasło"
                     />
                 </label>
-                {passwordError && <p className="error">{passwordError}</p>} {/* Wyświetlanie błędu */}
+                {passwordError && <p className="error">{passwordError}</p>}
                 <div className="button-row">
                     <button className="save-button" type="submit">Zapisz zmiany</button>
                     <button className="logout-button" type="button" onClick={handleLogout}>Wyloguj się</button>
