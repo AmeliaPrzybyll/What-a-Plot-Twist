@@ -81,9 +81,8 @@ public class MongoController : ControllerBase
                                            .Select(e => e.ErrorMessage)
                                            .ToList();
 
-            // Zwróć błąd w formie czystego tekstu, aby użytkownik mógł łatwiej go zrozumieć
             var friendlyMessage = string.Join(", ", errorMessages);
-            return BadRequest(friendlyMessage); // Błąd zwrócony jako tekst
+            return BadRequest(friendlyMessage);
         }
 
         try
@@ -115,7 +114,7 @@ public class MongoController : ControllerBase
         }
     }
 
-    // endpoint do zmiany loginu/hasła/avatara
+    // AP:endpoint do zmiany loginu/hasła/avatara
     [HttpPost("update-user")]
     public async Task<IActionResult> UpdateUser([FromBody] UpdateUserRequest updateRequest)
     {
@@ -123,14 +122,12 @@ public class MongoController : ControllerBase
         {
             var collection = _context.GetCollection<User>("User");
 
-            // znajdź użytkownika po starej nazwie
             var user = await collection.Find(u => u.Username == updateRequest.OldUsername).FirstOrDefaultAsync();
             if (user == null)
             {
                 return NotFound("Nie znaleziono użytkownika.");
             }
 
-            // Jeśli podano nowy login, zmień username
             if (!string.IsNullOrEmpty(updateRequest.NewUsername))
             {
                 var existingUser = await collection.Find(u => u.Username == updateRequest.NewUsername).FirstOrDefaultAsync();
@@ -142,19 +139,16 @@ public class MongoController : ControllerBase
                     user.Username = updateRequest.NewUsername;
             }
 
-            // Jeśli podano nowe hasło, zmień hasło
             if (!string.IsNullOrEmpty(updateRequest.NewPassword))
             {
                 user.PasswordHash = HashPassword(updateRequest.NewPassword);
             }
 
-            // Jeśli podano nowe avatar, zmień avatar
             if (!string.IsNullOrEmpty(updateRequest.NewAvatar))
             {
                 user.Avatar = Convert.FromBase64String(updateRequest.NewAvatar);
             }
 
-            // Zaktualizuj użytkownika w bazie danych
             var filter = Builders<User>.Filter.Eq(u => u.Id, user.Id);
             var result = await collection.ReplaceOneAsync(filter, user);
 

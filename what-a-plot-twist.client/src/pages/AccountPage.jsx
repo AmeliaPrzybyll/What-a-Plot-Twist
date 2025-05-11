@@ -81,7 +81,7 @@ export default function AccountPage() {
         };
 
         try {
-            const response = await fetch('https://localhost:7276/api/mongo/update-user', {
+            const response = await fetch('https://localhost:/api/mongo/update-user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

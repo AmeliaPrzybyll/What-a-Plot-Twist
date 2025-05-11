@@ -11,38 +11,38 @@ builder.Services.AddCors(options =>
                         .AllowAnyMethod());
 });
 
-//test połaczenia z bazą danych przy starcie aplikacji
-var mongoConnectionString = builder.Configuration.GetSection("MongoDB:ConnectionString").Value;
-var databaseName = builder.Configuration.GetSection("MongoDB:DatabaseName").Value;
+////test połaczenia z bazą danych przy starcie aplikacji
+//var mongoConnectionString = builder.Configuration.GetSection("MongoDB:ConnectionString").Value;
+//var databaseName = builder.Configuration.GetSection("MongoDB:DatabaseName").Value;
 
-if (string.IsNullOrEmpty(mongoConnectionString))
-{
-    Console.WriteLine("❌ Błąd: Brak connection stringa! Sprawdź appsettings.json.");
-    Environment.Exit(1);
-}
-else
-{
-    Console.WriteLine($"✅ Connection string: {mongoConnectionString}");
-}
+//if (string.IsNullOrEmpty(mongoConnectionString))
+//{
+//    Console.WriteLine("❌ Błąd: Brak connection stringa! Sprawdź appsettings.json.");
+//    Environment.Exit(1);
+//}
+//else
+//{
+//    Console.WriteLine($"✅ Connection string: {mongoConnectionString}");
+//}
 
-try
-{
-    var mongoClient = new MongoClient(mongoConnectionString);
-    var database = mongoClient.GetDatabase(databaseName);
-    var pingResult = database.RunCommandAsync((Command<BsonDocument>)"{ping:1}").Wait(2000);
+//try
+//{
+//    var mongoClient = new MongoClient(mongoConnectionString);
+//    var database = mongoClient.GetDatabase(databaseName);
+//    var pingResult = database.RunCommandAsync((Command<BsonDocument>)"{ping:1}").Wait(2000);
 
-    if (!pingResult)
-    {
-        throw new Exception("Brak odpowiedzi od serwera MongoDB.");
-    }
+//    if (!pingResult)
+//    {
+//        throw new Exception("Brak odpowiedzi od serwera MongoDB.");
+//    }
 
-    Console.WriteLine("✅ Połączenie z bazą MongoDB działa poprawnie.");
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"❌ Błąd połączenia z bazą: {ex.Message}");
-    Environment.Exit(1);
-}
+//    Console.WriteLine("✅ Połączenie z bazą MongoDB działa poprawnie.");
+//}
+//catch (Exception ex)
+//{
+//    Console.WriteLine($"❌ Błąd połączenia z bazą: {ex.Message}");
+//    Environment.Exit(1);
+//}
 
 // Rejestracja ustawień MongoDB
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDB"));
