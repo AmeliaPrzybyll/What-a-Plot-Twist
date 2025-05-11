@@ -25,23 +25,40 @@ export default function Chice_TruthOrDare() {
 
     const fetchTruth = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/TruthOrDare/truth"); //tu pozmieniaj
-            const text = await response.text();
-            setTruthText(text);
+            const response = await fetch("http://localhost:7276/api/chatgpt/send-message", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    message: "Podaj jedno pytanie do gry Prawda czy Wyzwanie (prawda)"
+                }),
+            });
+            const data = await response.json();
+            setTruthText(data.response);
         } catch (err) {
-            console.error("Błąd pobierania:", err);
+            console.error("Błąd pobierania prawdy:", err);
         }
     };
 
     const fetchDare = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/TruthOrDare/truth"); //tu pozmieniaj
-            const text = await response.text();
-            setDareText(text);
+            const response = await fetch("http://localhost:7276/api/chatgpt/send-message", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    message: "Podaj jedno wyzwanie do gry Prawda czy Wyzwanie"
+                }),
+            });
+            const data = await response.json();
+            setDareText(data.response);
         } catch (err) {
-            console.error("Błąd pobierania:", err);
+            console.error("Błąd pobierania wyzwania:", err);
         }
     };
+
     const selectNextPlayer = () => {
         if (players.length === 0) return;
 
