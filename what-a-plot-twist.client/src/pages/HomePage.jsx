@@ -15,6 +15,12 @@ export default function HomePage() {
     const handleTruthOrDare = () => {
         navigate("/truthOrDare");
     };
+    const handleNeverEver = () => {
+        navigate("/neverEver");
+    };
+    const handleCharades = () => {
+        navigate("/charades");
+    };
 
     return (
         <div className="home-page">
@@ -39,8 +45,8 @@ export default function HomePage() {
 
                 <div className="game-buttons">
                     <button className="game-button" onClick={handleTruthOrDare}>Prawda czy wyzwanie</button>
-                    <button className="game-button">Nigdy przenigdy</button>
-                    <button className="game-button">Kalambury</button>
+                    <button className="game-button" onClick={handleNeverEver}>Nigdy przenigdy</button>
+                    <button className="game-button" onClick={handleCharades}>Kalambury</button>
                     <button className="game-button">Czy to fake news</button>
                 </div>
             </main>

@@ -1,0 +1,397 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,200;1,14..32,200&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: white !important;
+    background-image: none !important;
+    min-height: 100vh;
+}
+
+.neverEver-page {
+    font-family: 'Inter', sans-serif;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    font-weight: 200;
+    height: 100%;
+    min-height: 100vh;
+}
+
+.navbar-3 {
+    padding: 0rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-top: -30px;
+}
+
+.back-button {
+    background-color: #d6d6d6;
+    border: none;
+    border-radius: 20px;
+    width: 68px;
+    height: 68px;
+    font-size: 24px;
+    color: #3f3f4f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    position: absolute;
+    left: 2rem;
+}
+
+    .back-button:hover {
+        background-color: #c0c0c0;
+        transform: scale(1.05);
+    }
+
+.never-ever {
+    color: #1E1E1E;
+    font-size: 1.9em;
+    font-weight: 500;
+    padding-left: 2rem;
+    margin-top: 30px;
+}
+
+.modal {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: black;
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    width: 300px;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    height: 350px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+
+}
+
+.square-textarea {
+    background: white;
+    color: black;
+    min-height: 150px;
+    min-width: 250px;
+    border-radius: 20px;
+    padding: 16px; 
+    font-size: 16px;
+    border: none;
+    resize: none;
+    box-sizing: border-box;
+}
+
+.ok-button {
+    background: black;
+    color: white;
+    border-style: solid;
+    border-color: white;
+    border-width: 2px;
+    cursor: pointer;
+}
+
+
+.main-never-ever {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 0 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+    flex: 1;
+    margin-bottom: 40px;
+}
+
+.punishment-never-ever {
+    background-color: black;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    border-radius: 20px;
+    padding: 1rem 2rem 2rem;
+    width: 20%;
+    height: 80%;
+    min-height: 450px;
+
+}
+
+.punishment-container {
+    flex-wrap: wrap;
+
+}
+.punishment-text {
+    margin-top: 70px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-align: center;
+    max-width: 100%;
+}
+    .punishment-text p {
+        word-break: break-word;
+        font-size: 30px;
+    }
+
+.punishment-title {
+    margin-top: 10px;
+    font-size: 30px;
+}
+
+.question {
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.question-container {
+    background-color: #F0F0F0;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    padding: 70px 10px 70px 10px;
+    width: 100%;
+    max-width: 1200px;
+    box-sizing: border-box;
+
+
+}
+
+.question-text-1 {
+    margin: -10px 5px -10px 5px;
+    font-size: 30px;
+    align-content: center;
+    justify-content: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+    .question-text-1 p {
+        font-size: clamp(1rem, 5vw, 2rem);
+        word-break: break-word;
+        text-align: center;
+    }
+
+    .question-text-2 {
+        margin-top: -20px;
+        font-size: 14px;
+        align-content: center;
+        justify-content: center;
+    }
+
+.question-title {
+    margin-top: -10px;
+    font-size: 14px;
+    align-content: center;
+}
+
+
+
+@media (max-width: 916px) and (orientation: portrait) {
+    .rotate-warning {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: black;
+        color: white;
+        font-size: 1.2rem;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .truthOrDare-page {
+        display: none;
+    }
+    
+}
+
+
+
+
+@media (orientation: landscape) {
+    .rotate-warning {
+        display: none !important;
+    }
+}
+
+@media (max-width: 916px) and (orientation: landscape) {
+    .navbar-3 {
+        padding: 0rem 4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        margin-top: -30px;
+    }
+
+    .back-button {
+        background-color: #d6d6d6;
+        border: none;
+        border-radius: 10px;
+        width: 38px;
+        height: 38px;
+        font-size: 14px;
+        color: #3f3f4f;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+        position: absolute;
+        left: 2rem;
+    }
+
+        .back-button:hover {
+            background-color: #c0c0c0;
+            transform: scale(1.05);
+        }
+
+    .never-ever {
+        color: #1E1E1E;
+        font-size: 1.25rem; 
+        font-weight: 200;
+        font-style: normal;
+        padding-left: 2rem;
+        margin-top: 30px;
+    }
+    .main-never-ever {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        padding: 0 1rem;
+        width: 100%;
+        box-sizing: border-box;
+        align-items: center;
+        flex: 1;
+        margin-bottom: 40px;
+    }
+
+    .punishment-never-ever {
+        background-color: black;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        border-radius: 20px;
+        padding: 0.25rem 0.5rem 0.5rem;
+        width: 20%;
+        height: 100%;
+        min-height: 300px;
+    }
+
+    .punishment-container {
+        flex-wrap: wrap;
+    }
+
+    .punishment-text {
+        margin-top: 60px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        text-align: center;
+        max-width: 100%;
+    }
+
+        .punishment-text p {
+            word-break: break-word;
+            font-size: 15px;
+        }
+
+    .punishment-title {
+        margin-top: 10px;
+        font-size: 15px;
+    }
+
+    .question {
+        width: 50%;
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .question-container {
+        background-color: #F0F0F0;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        padding: 35px 5px 35px 5px;
+        width: 100%;
+        max-width: 1200px;
+        box-sizing: border-box;
+    }
+
+    .question-text-1 {
+        margin: -10px 5px -10px 5px;
+        font-size: 7px;
+        align-content: center;
+        justify-content: center;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+        .question-text-1 p {
+            font-size: clamp(0.5rem, 2.5vw, 1rem);
+            word-break: break-word;
+            text-align: center;
+        }
+
+    .question-text-2 {
+        margin-top: 5px;
+        font-size: 10px;
+        align-content: center;
+        justify-content: center;
+    }
+
+    .question-title {
+        margin-top: -10px;
+        font-size: 14px;
+        align-content: center;
+    }
+    .refresh-button{
+        width: 50px;
+        height: 50px;
+    }
+}
