@@ -7,7 +7,7 @@ export default function NeverEver() {
     const [isModalOpen, setIsModalOpen] = useState(true);
     const [punishment, setPunishment] = useState("");
     const [currentQuestion, setCurrentQuestion] = useState("Tutaj pojawi się pytanie");
-    const [currentText, setRelodeText] = useState("kliknij przycisk poniżej, aby je wylosować");
+    const [currentText, setReloadText] = useState("kliknij przycisk poniżej, aby je wylosować");
 
     const questions = [
         "Nigdy przenigdy nie zaspałem na ważne spotkanie.",
@@ -25,7 +25,7 @@ export default function NeverEver() {
     const handleNewQuestion = () => {
         const randomIndex = Math.floor(Math.random() * questions.length);
         setCurrentQuestion(questions[randomIndex]);
-        setRelodeText("kliknij przycisk poniżej ponownie, aby wylosować pytanie");
+        setReloadText("kliknij przycisk poniżej ponownie, aby wylosować pytanie");
     };
 
     const closeModal = () => {
@@ -76,13 +76,13 @@ export default function NeverEver() {
                         <div className="modal">
                             <div className="modal-content">
                                 <h2>KARA</h2>
-                                    <textarea class="square-textarea" type="text"
-                                        value={punishment}
-                                        onChange={(e) => setPunishment(e.target.value)}
-                                        placeholder="Ustalcie wspólnie karę"
-                                        maxLength={60}>
-                                    </textarea> 
-                       
+                                <textarea className="square-textarea" type="text"
+                                    value={punishment}
+                                    onChange={(e) => setPunishment(e.target.value)}
+                                    placeholder="Ustalcie wspólnie karę"
+                                    maxLength={60}>
+                                </textarea>
+
                                 <div className="modal-buttons">
                                     <button className="ok-button" onClick={closeModal}>✔</button>
 
