@@ -6,6 +6,8 @@ import HomePage from "./pages/HomePage";
 import AccountPage from './pages/AccountPage';
 import TruthOrDare from "./pages/TruthOrDare";
 import Choice_TruthOrDare from "./pages/Choice_TruthOrDare";
+import NeverEver from "./pages/NeverEver";
+
 
 
 
@@ -19,6 +21,7 @@ function App() {
                 <Route path="/account" element={<AccountPage />} />
                 <Route path="/truthOrDare" element={<TruthOrDare />} />
                 <Route path="/choice_truthOrDare" element={<Choice_TruthOrDare />} />
+                <Route path="/neverEver" element={<NeverEver />} />
             </Routes>
         </Router>
     );
