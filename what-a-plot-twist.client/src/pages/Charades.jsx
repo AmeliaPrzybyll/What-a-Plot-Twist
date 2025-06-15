@@ -45,7 +45,7 @@ export default function Charades() {
             alert("Wybierz kategorię.");
             return;
         }
-        navigate("/round_charades", { state: { players, selectedRound, selectedTime, selectedCategory2 } });
+        navigate("/charades_game", { state: { players, selectedRound, selectedTime, selectedCategory2 } });
     };
 
     const handleSelectChange = (e) => {

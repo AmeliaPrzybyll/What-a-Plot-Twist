@@ -8,6 +8,7 @@ import TruthOrDare from "./pages/TruthOrDare";
 import Choice_TruthOrDare from "./pages/Choice_TruthOrDare";
 import NeverEver from "./pages/NeverEver";
 import Charades from "./pages/Charades";
+import Charades_Game from "./pages/Charades_Game";
 
 
 
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/choice_truthOrDare" element={<Choice_TruthOrDare />} />
                 <Route path="/neverEver" element={<NeverEver />} />
                 <Route path="/charades" element={<Charades />} />
+                <Route path="/charades_game" element={<Charades_Game />} />
             </Routes>
         </Router>
     );
