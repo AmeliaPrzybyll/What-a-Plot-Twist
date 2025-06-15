@@ -73,7 +73,7 @@ export default function TruthOrDare() {
     return (
         <>
             <div className="truthOrDare-page">
-                <nav className="navbar-2">
+                <nav className="navbar-5">
                     <button className="back-button" onClick={handleBack}>◀</button>
                     <div className="truth-or-dare">
                         <h3>Prawda Czy Wyzwanie</h3>
