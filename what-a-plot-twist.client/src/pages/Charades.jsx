@@ -27,8 +27,8 @@ export default function Charades() {
     const [selectedRound, setSelectedRound] = useState("");
 
     const handleGameCharades = () => {
-        if (players.length < 2) {
-            alert("Gra dla miminum 2 graczy.");
+        if (players.length < 3) {
+            alert("Gra dla miminum 3 graczy.");
             return;
         }
         if (!selectedRound) {
