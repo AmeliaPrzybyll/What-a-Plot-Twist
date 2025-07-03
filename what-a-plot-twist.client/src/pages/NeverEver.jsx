@@ -1,6 +1,8 @@
 ﻿import React, { useState } from "react";
 import "../styles/NeverEver.css";
 import { useNavigate } from "react-router-dom";
+import { neverEverQuestions } from "../constants/neverEverQuestions";
+
 
 export default function NeverEver() {
     const navigate = useNavigate();
@@ -9,14 +11,7 @@ export default function NeverEver() {
     const [currentQuestion, setCurrentQuestion] = useState("Tutaj pojawi się pytanie");
     const [currentText, setReloadText] = useState("kliknij przycisk poniżej, aby je wylosować");
 
-    const questions = [
-        "Nigdy przenigdy nie zaspałem na ważne spotkanie.",
-        "Nigdy przenigdy nie jadłem ślimaków.",
-        "Nigdy przenigdy nie złamałem kości.",
-        "Nigdy przenigdy nie kłamałem w CV.",
-        "Nigdy przenigdy nie oglądałem całego sezonu w jeden dzień."
-    ];
-
+    const questions = neverEverQuestions;
 
     const handleBack = () => {
         navigate("/home");

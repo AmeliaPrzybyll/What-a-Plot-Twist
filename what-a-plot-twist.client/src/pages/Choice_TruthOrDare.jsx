@@ -1,44 +1,25 @@
 ﻿import "../styles/Choice_TruthOrDare.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { truthQuestion } from "../constants/truthQuestions";
+import { dare } from "../constants/dares";
 
-const truthQuestions = [
-    "Jaki jest Twój ulubiony film?",
-    "Jakie jest Twoje największe marzenie?",
-    "Co byłoby Twoim wymarzonym zawodem?",
-    "Jakie jest Twoje najdziwniejsze wspomnienie?",
-    "Co najbardziej cenisz w przyjaźni?",
-    "Jaka jest Twoja najgorsza cecha?",
-    "Co byś zmienił w swoim życiu, gdybyś miał szansę?",
-    "Jakie jest Twoje największe osiągnięcie?",
-    "Jaka jest Twoja najgorsza wada?",
-    "Kogo podziwiasz najbardziej?"
-];
-
-const dares = [
-    "Zatańcz przez 30 sekund.",
-    "Pokaż wszystkim swoje najzabawniejsze zdjęcie.",
-    "Zrób 10 pompek.",
-    "Zaśpiewaj swoją ulubioną piosenkę.",
-    "Spróbuj zrobić 10 przysiadów bez przerwy.",
-    "Zrób zdjęcie swojej twarzy z jakimś zabawnym wyrazem.",
-    "Pokaż wszystkim swój taniec, który nauczyłeś się w szkole.",
-    "Przebierz się w coś szalonego na 5 minut.",
-    "Zadzwoń do znajomego i zaśpiewaj mu piosenkę.",
-    "Zaśpiewaj i zatańcz do kawałka, który właśnie leci w tle."
-];
+const truthQuestions = truthQuestion;
+const dares = dare;
 
 export default function Chice_TruthOrDare() {
     const navigate = useNavigate();
     const location = useLocation();
     const players = location.state?.players || [];
+    const punishment = location.state?.punishment || "Brak kary";
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isModalOpen2, setIsModalOpen2] = useState(false);
     const [isModalOpen3, setIsModalOpen3] = useState(false);
-    const punishment = location.state?.punishment || "Brak kary";
+    const [showingResults, setShowingResults] = useState(false);
+
     const [truthText, setTruthText] = useState("");
     const [dareText, setDareText] = useState("");
-
     const [selectedPlayer, setSelectedPlayer] = useState("");
     const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
 
@@ -48,6 +29,7 @@ export default function Chice_TruthOrDare() {
             return acc;
         }, {})
     );
+
     const [gameEnded, setGameEnded] = useState(false);
 
     useEffect(() => {
@@ -76,13 +58,13 @@ export default function Chice_TruthOrDare() {
 
     const endTurn = () => {
         const newTurnCount = { ...playerTurnCount };
-        newTurnCount[selectedPlayer] += 1; 
+        newTurnCount[selectedPlayer] += 1;
         setPlayerTurnCount(newTurnCount);
 
         if (Object.values(newTurnCount).every(turns => turns >= 3)) {
-            setGameEnded(true); 
+            setGameEnded(true);
         } else {
-            selectNextPlayer(); 
+            selectNextPlayer();
         }
     };
 
@@ -110,17 +92,17 @@ export default function Chice_TruthOrDare() {
 
     const closeModal = () => {
         setIsModalOpen(false);
-        endTurn(); //Kończymy turę
+        endTurn();
     };
 
     const closeModal2 = () => {
         setIsModalOpen2(false);
-        endTurn(); //Kończymy turę
+        endTurn();
     };
 
     const closeModal3 = () => {
         setIsModalOpen3(false);
-        endTurn(); //Kończymy turę
+        endTurn();
     };
 
     const notPassed = () => {
@@ -132,9 +114,17 @@ export default function Chice_TruthOrDare() {
         setIsModalOpen3(false);
         setIsModalOpen2(true);
     };
-//:DO ZROBIENIA -> WYŚWITALNIE WYNIKÓW
+
     const showResults = () => {
-        alert("Gra zakończona! Wyniki zostaną wyświetlone.");
+        setIsModalOpen(false);
+        setIsModalOpen2(false);
+        setIsModalOpen3(false);
+        setShowingResults(true);
+    };
+
+    const closeResults = () => {
+        setShowingResults(false);
+        navigate("/truthOrDare");
     };
 
     return (
@@ -152,7 +142,7 @@ export default function Chice_TruthOrDare() {
                 </div>
 
                 <div className="main">
-                    <div className="div-truth-button" >
+                    <div className="div-truth-button">
                         <button className="truth-button" onClick={openModal}>
                             <h2>Prawda</h2>
                         </button>
@@ -175,6 +165,7 @@ export default function Chice_TruthOrDare() {
                             </div>
                         </div>
                     )}
+
                     {isModalOpen2 && (
                         <div className="modal-truth">
                             <div className="modal-not-passed" value={punishment}>
@@ -199,7 +190,6 @@ export default function Chice_TruthOrDare() {
                         </div>
                     )}
 
-                    {/* Wyświtlanie wyników*/}
                     {gameEnded && (
                         <div className="game-end">
                             <h2>Gra zakończona!</h2>
@@ -210,9 +200,25 @@ export default function Chice_TruthOrDare() {
             </div>
 
             <div className="rotate-warning">
-                <h3>Obróć telefon poziomo, aby kontynuować grę. </h3>
+                <h3>Obróć telefon poziomo, aby kontynuować grę.</h3>
                 <h1>⟳</h1>
             </div>
+
+            {showingResults && (
+                <div className="modal-truth">
+                    <div className="modal-results-content">
+                        <h2>Wyniki Gry</h2>
+                        <ul>
+                            {players.map(player => (
+                                <li key={player}>
+                                    {player}: {playerTurnCount[player]} tur
+                                </li>
+                            ))}
+                        </ul>
+                        <button onClick={closeResults}>Zamknij</button>
+                    </div>
+                </div>
+            )}
         </>
     );
 }
