@@ -9,6 +9,7 @@ import Choice_TruthOrDare from "./pages/Choice_TruthOrDare";
 import NeverEver from "./pages/NeverEver";
 import Charades from "./pages/Charades";
 import Charades_Game from "./pages/Charades_Game";
+import FakeNews from "./pages/FakeNews";
 
 
 
@@ -26,6 +27,7 @@ function App() {
                 <Route path="/neverEver" element={<NeverEver />} />
                 <Route path="/charades" element={<Charades />} />
                 <Route path="/charades_game" element={<Charades_Game />} />
+                <Route path="/fakeNews" element={<FakeNews />} />
             </Routes>
         </Router>
     );
