@@ -98,16 +98,15 @@ export default function TruthOrDare() {
                     </div>
 
                     <div className="punishment">
-                        <div className="punishment-text">
                             <h4>Tutaj możesz ustalić karę za niewykonane zadanie</h4>
-                        </div>
+                     
                         <input
                             className="punishment-input"
                             type="text"  
                             placeholder="Wpisz karę"
                             value={punishment}
                             onChange={(e) => setPunishment(e.target.value)}
-                            maxLength={30}
+                            maxLength={70}
                         />
                     </div>
 

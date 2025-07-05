@@ -1,9 +1,9 @@
-ï»¿import { useState } from "react";
+import { useState } from "react";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 
 
-// strona do logowania i rejestracji z przeÅ‚Ä…czaniem formularzy
+// strona do logowania i rejestracji z prze³¹czaniem formularzy
 
 function AuthPage() {
 
