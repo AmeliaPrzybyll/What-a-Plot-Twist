@@ -37,3 +37,14 @@ Fake news:
 
 Wymagania niefunkcjonalne:
 Link do figmy: https://www.figma.com/design/D0gBALGhZ5LXOT8bRwNOQr/Untitled?node-id=0-1&t=Ta8o2oXM0iuKH9yS-1
+
+Przed uruchomieniem projektu upewnij się, że masz zainstalowane:
+Visual Studio 2022 lub nowsze
+z zaznaczonymi workloadami:
+-ASP.NET and web development
+-Node.js development
+1. Sklonuj repozytorium.
+2. Otwórz plik .sln w Visual Studio
+3. W ustawieniach projektu startowego wybierz opcje "wiele startowych projektów" i ustaw start dla każdego.
+4. Kliknij na What-a-Plot-Twist.Server prawym przyciskiem i ustaw jako projekt startowy.
+5. Uruchom program.
