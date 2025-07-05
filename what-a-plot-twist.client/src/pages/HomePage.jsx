@@ -21,6 +21,9 @@ export default function HomePage() {
     const handleCharades = () => {
         navigate("/charades");
     };
+    const handleFakeNews = () => {
+        navigate("/fakeNews");
+    };
 
     return (
         <div className="home-page">
@@ -47,7 +50,7 @@ export default function HomePage() {
                     <button className="game-button" onClick={handleTruthOrDare}>Prawda czy wyzwanie</button>
                     <button className="game-button" onClick={handleNeverEver}>Nigdy przenigdy</button>
                     <button className="game-button" onClick={handleCharades}>Kalambury</button>
-                    <button className="game-button">Czy to fake news</button>
+                    <button className="game-button" onClick={handleFakeNews}>Czy to fake news</button>
                 </div>
             </main>
         </div>
