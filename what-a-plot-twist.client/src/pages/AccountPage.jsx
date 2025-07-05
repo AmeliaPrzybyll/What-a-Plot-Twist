@@ -118,6 +118,10 @@ export default function AccountPage() {
 
     return (
         <div className="account-page">
+            <button className="go-home-button" onClick={() => navigate("/home")}>
+               X
+            </button>
+
             <h1>Konto użytkownika</h1>
             {message && <p className="message">{message}</p>}
 

@@ -23,8 +23,26 @@ function Register({ onToggleForm }) {
             alert("Rejestracja zakończona sukcesem! Możesz się teraz zalogować.");
             onToggleForm();
         } catch (err) {
-            console.error("Błąd:", err.message);
-            setError(err.message);
+            try {
+                // jeśli backend odpowiedział poprawnie błędem (np. status 400)
+                const res = err?.response
+                    ? await err.response.json()
+                    : JSON.parse(err.message);
+
+                const passwordErrors = res.errors?.Password;
+
+                if (Array.isArray(passwordErrors) && passwordErrors.length > 0) {
+                    setError(passwordErrors[0]); // tylko konkretny komunikat
+                } else {
+                    setError("Wystąpił błąd walidacji.");
+                }
+
+            } catch (parseErr) {
+                // jeśli nic nie udało się sparsować – fallback
+                console.error("Nieoczekiwany błąd:", err);
+                setError("Nieoczekiwany błąd.");
+            }
+        
         }
     };
 
